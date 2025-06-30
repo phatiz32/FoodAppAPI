@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using myapi.Interfaces;
 using myapi.Service;
 using Microsoft.OpenApi.Models;
+using myapi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -83,6 +84,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ICategoryReposiory, CategoryRepository>();
 
 var app = builder.Build();
 
