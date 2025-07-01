@@ -32,7 +32,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 8;
 
-}).AddEntityFrameworkStores<ApplicationDBContext>();
+}).AddEntityFrameworkStores<ApplicationDBContext>()
+.AddDefaultTokenProviders();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme =
@@ -83,8 +84,14 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+// gán các giá trị từ appsetting.json vào EmailSettings và truy cập bất cứ đâu
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICategoryReposiory, CategoryRepository>();
+builder.Services.AddScoped<IEmailServices, EmailService>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 var app = builder.Build();
 
