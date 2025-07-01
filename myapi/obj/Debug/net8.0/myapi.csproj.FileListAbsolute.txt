@@ -149,3 +149,4 @@ C:\Users\ADMIN\MyProject\myapi\bin\Debug\net8.0\MailKit.dll
 C:\Users\ADMIN\MyProject\myapi\bin\Debug\net8.0\MimeKit.dll
 C:\Users\ADMIN\MyProject\myapi\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\ADMIN\MyProject\myapi\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\ADMIN\MyProject\myapi\bin\Debug\net8.0\myapi.staticwebassets.runtime.json

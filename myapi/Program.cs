@@ -84,6 +84,16 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://127.0.0.1:5500") // hoặc http://localhost:5500
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // gán các giá trị từ appsetting.json vào EmailSettings và truy cập bất cứ đâu
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
@@ -92,6 +102,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICategoryReposiory, CategoryRepository>();
 builder.Services.AddScoped<IEmailServices, EmailService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IFoodItemRepository, FoodItemRespository>();
 
 var app = builder.Build();
 
@@ -103,6 +114,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("AllowFrontend");
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
