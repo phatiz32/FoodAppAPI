@@ -20,15 +20,19 @@ namespace myapi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var categorys = await _categoryRepo.GetAllAsync();
-            var categoryDto = categorys.Select(m => m.ToCategoryDto());
-            return Ok(categoryDto);
+            var categoryDtos = categorys.Select(c => c.ToshowCategoryDto()).ToList();
+            foreach (var cat in categoryDtos)
+            {
+                Console.WriteLine($"Id: {cat.Id}, Name: {cat.Name}");
+            }
+            return Ok(categoryDtos);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateCategoryDto createDto)
         {
             var category = createDto.ToCategoryDto();// chuyen tu dto sang enity
             var createCategory = await _categoryRepo.AddAsync(category);
-            return Ok(createCategory.ToCategoryDto());
+            return Ok();
         }
         [HttpDelete]
         [Route("{id}")]
@@ -40,6 +44,12 @@ namespace myapi.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+        [HttpGet("raw")]
+        public async Task<IActionResult> GetRaw()
+        {
+            var categorys = await _categoryRepo.GetAllAsync();
+            return Ok(categorys);
         }
 
     }

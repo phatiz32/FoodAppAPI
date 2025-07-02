@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Food Item</title>
+</head>
+<body>
+  <h2>Thêm món ăn mới</h2>
+
+  <form id="createForm">
+    <label>Tên món:
+      <input type="text" name="name" required />
+    </label><br />
+
+    <label>Mô tả:
+      <textarea name="description" required></textarea>
+    </label><br />
+
+    <label>Giá:
+      <input type="number" step="0.01" name="price" required />
+    </label><br />
+
+    <label>Trạng thái:
+      <select name="isAvailable">
+        <option value="true">Còn bán</option>
+        <option value="false">Ngưng bán</option>
+      </select>
+    </label><br />
+
+    <label>Loại món:
+      <select name="categoryId" id="categorySelect" required>
+        <option value="">-- Chọn loại món --</option>
+      </select>
+    </label><br />
+
+    <label>Ảnh:
+      <input type="file" name="image" accept="image/*" />
+    </label><br />
+
+    <button type="submit">Tạo món</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    // 🟢 Load danh sách category
+    async function loadCategories() {
+      const res = await fetch("http://localhost:5001/api/category");
+      const data = await res.json();
+
+      const select = document.getElementById("categorySelect");
+      select.innerHTML = '<option value="">-- Chọn loại món --</option>';
+
+      data.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat.id;
+        opt.textContent = cat.name;
+        select.appendChild(opt);
+      });
+    }
+
+    loadCategories(); // gọi khi trang load
+
+    // 🔄 Xử lý gửi form tạo món
+    document.getElementById("createForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      const response = await fetch("http://localhost:5001/api/fooditem", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = document.getElementById("result");
+
+      if (response.ok) {
+        const data = await response.json();
+        result.innerHTML = `<p style="color:green;">Tạo thành công!</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+        form.reset();
+      } else {
+        const error = await response.text();
+        result.innerHTML = `<p style="color:red;">Lỗi: ${error}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

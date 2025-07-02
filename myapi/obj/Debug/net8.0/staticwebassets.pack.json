@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\39963112-23d6-4810-84a0-923b8d86a693.jpg",
+      "PackagePath": "staticwebassets\\uploads\\39963112-23d6-4810-84a0-923b8d86a693.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\a975afe2-1c91-4141-bd98-9d506222ac0d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\a975afe2-1c91-4141-bd98-9d506222ac0d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\b9ae99d0-220c-40f6-9315-997ebea0d887.webp",
+      "PackagePath": "staticwebassets\\uploads\\b9ae99d0-220c-40f6-9315-997ebea0d887.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\eedecd9d-f90b-4c1d-84dd-df841b3cf950.jpg",
+      "PackagePath": "staticwebassets\\uploads\\eedecd9d-f90b-4c1d-84dd-df841b3cf950.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.myapi.props",
+      "PackagePath": "build\\myapi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.myapi.props",
+      "PackagePath": "buildMultiTargeting\\myapi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.myapi.props",
+      "PackagePath": "buildTransitive\\myapi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.myapi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

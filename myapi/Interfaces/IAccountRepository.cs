@@ -6,5 +6,6 @@ namespace myapi.Interfaces
     {
         Task<bool> SendResetPasswordEmailAsync(ForgotPassworDto forgotPassworDto);
         Task<bool> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
+        
     }
 }

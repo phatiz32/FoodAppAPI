@@ -6,10 +6,11 @@ namespace myapi.Mappers
 {
     public static class CategoryMapper
     {
-        public static CategoryDto ToCategoryDto(this Category category)
+        public static CategoryDto ToshowCategoryDto(this Category category)
         {
             return new CategoryDto
             {
+                Id=category.Id,
                 Name = category.Name
             };
         }

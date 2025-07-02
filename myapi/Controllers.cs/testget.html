@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách món ăn</title>
+</head>
+<body>
+  <h2>Danh sách món ăn</h2>
+  <div id="foodList">Đang tải...</div>
+
+  <script>
+    async function loadFoods() {
+      try {
+        const response = await fetch("http://localhost:5001/api/fooditem");
+        const foods = await response.json();
+
+        const container = document.getElementById("foodList");
+        container.innerHTML = ""; // Xóa dòng "Đang tải..."
+
+        if (foods.length === 0) {
+          container.innerHTML = "<p>Không có món nào.</p>";
+          return;
+        }
+
+        foods.forEach(food => {
+          const item = document.createElement("div");
+
+          item.innerHTML = `
+            <h3>${food.name}</h3>
+            <p><strong>Mô tả:</strong> ${food.description}</p>
+            <p><strong>Giá:</strong> ${food.price} VND</p>
+            <p><strong>Loại món:</strong> ${food.categoryName}</p>
+            <p><strong>Trạng thái:</strong> ${food.isAvailable ? "Còn bán" : "Ngưng bán"}</p>
+            ${food.imageUrl ? `<img src="http://localhost:5001/uploads/${food.imageUrl}" width="200"/>` : "<p>Không có hình ảnh</p>"}
+            <hr>
+          `;
+
+          container.appendChild(item);
+        });
+
+      } catch (error) {
+        document.getElementById("foodList").innerHTML = "Lỗi khi tải dữ liệu.";
+        console.error("Lỗi load món ăn:", error);
+      }
+    }
+
+    loadFoods();
+  </script>
+</body>
+</html>

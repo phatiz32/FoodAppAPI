@@ -49,10 +49,25 @@ namespace myapi.Repository
             return food;
         }
 
-        public async Task<List<FoodItem>> GetAllAsync(QueryObject query)
+        public async Task<FoodItem?> DeleteAsync(int id)
         {
-            return await _context.FoodItems.Skip((query.PageNumber - 1) * query.PageSize)
-            .Take(query.PageNumber).ToListAsync();
+            var food = await _context.FoodItems.FindAsync(id);
+            if (food == null)
+            {
+                return null;
+            }
+            _context.FoodItems.Remove(food);
+            await _context.SaveChangesAsync();
+            return food;
+        }
+
+        public async Task<List<ToFoodItemDto>> GetAllAsync(QueryObject query)
+        {
+            return await _context.FoodItems
+            .Include(f => f.Category)
+            .Skip((query.PageNumber - 1) * query.PageSize)
+            .Take(query.PageSize)
+            .Select(s=>s.toFoodItemDto()).ToListAsync();
         }
 
         public async Task<FoodItem> UpdateAsync(int id, UpdateFoodItemDto foodItemDto)
@@ -88,5 +103,7 @@ namespace myapi.Repository
             return food;
             
         }
+
+        
     }
 }
