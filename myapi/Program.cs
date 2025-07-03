@@ -103,6 +103,7 @@ builder.Services.AddScoped<ICategoryReposiory, CategoryRepository>();
 builder.Services.AddScoped<IEmailServices, EmailService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IFoodItemRepository, FoodItemRespository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 var app = builder.Build();
 

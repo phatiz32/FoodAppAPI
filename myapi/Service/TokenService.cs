@@ -25,6 +25,8 @@ namespace myapi.Service
             {
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),
                 new Claim(JwtRegisteredClaimNames.GivenName,user.FullName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                 new Claim(JwtRegisteredClaimNames.Sub, user.Id)
 
             };
             //ki token bang thuat toan hmacsha
