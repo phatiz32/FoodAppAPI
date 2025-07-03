@@ -63,11 +63,22 @@ namespace myapi.Repository
 
         public async Task<List<ToFoodItemDto>> GetAllAsync(QueryObject query)
         {
-            return await _context.FoodItems
-            .Include(f => f.Category)
-            .Skip((query.PageNumber - 1) * query.PageSize)
-            .Take(query.PageSize)
-            .Select(s=>s.toFoodItemDto()).ToListAsync();
+            var foodQuery = _context.FoodItems
+            .Include(x => x.Category).AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.SearchName))
+            {
+                foodQuery = foodQuery.Where(x => x.Name.Contains(query.SearchName));
+
+            }
+            if (query.CategoryId.HasValue)
+            {
+                foodQuery = foodQuery.Where(x => x.CategoryId == query.CategoryId.Value);
+            }
+            foodQuery = foodQuery.Skip((query.PageNumber - 1) * query.PageSize)
+            .Take(query.PageSize);
+            var foodList = await foodQuery.Select(s => s.toFoodItemDto()).ToListAsync();
+            return foodList;
+
         }
 
         public async Task<FoodItem> UpdateAsync(int id, UpdateFoodItemDto foodItemDto)

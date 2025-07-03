@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Items</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Danh sách món ăn</h1>
+
+    <div style="margin-bottom: 10px;">
+        <label>Tên món ăn:</label>
+        <input type="text" id="searchInput" placeholder="Nhập tên món ăn" />
+
+        <label style="margin-left: 10px;">Loại món:</label>
+        <select id="categorySelect">
+            <option value="">-- Tất cả loại --</option>
+        </select>
+
+        <button onclick="loadData()" style="margin-left: 10px;">Tìm</button>
+    </div>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Giá</th>
+                <th>Còn bán</th>
+                <th>Loại</th>
+                <th>Ảnh</th>
+            </tr>
+        </thead>
+        <tbody id="foodTable">
+        </tbody>
+    </table>
+
+    <script>
+        const baseApi = "http://localhost:5001/api"; // 🔧 Đổi lại nếu khác
+
+        async function loadCategories() {
+            try {
+                const res = await fetch(`${baseApi}/category`);
+                const data = await res.json();
+                const categorySelect = document.getElementById("categorySelect");
+
+                data.forEach(c => {
+                    const opt = document.createElement("option");
+                    opt.value = c.id;
+                    opt.textContent = c.name;
+                    categorySelect.appendChild(opt);
+                });
+            } catch (err) {
+                console.error("Không thể tải danh sách loại:", err);
+            }
+        }
+
+        async function loadData() {
+            const search = document.getElementById("searchInput").value;
+            const categoryId = document.getElementById("categorySelect").value;
+
+            let url = `${baseApi}/fooditem?`;
+            if (search) url += `searchName=${encodeURIComponent(search)}&`;
+            if (categoryId) url += `categoryId=${categoryId}&`;
+            url += `pageNumber=1&pageSize=20`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const table = document.getElementById("foodTable");
+                table.innerHTML = "";
+
+                if (data.length === 0) {
+                    table.innerHTML = "<tr><td colspan='6'>Không có món nào phù hợp</td></tr>";
+                    return;
+                }
+
+                data.forEach(item => {
+                    const row = `<tr>
+                        <td>${item.name}</td>
+                        <td>${item.description}</td>
+                        <td>${item.price}</td>
+                        <td>${item.isAvailable ? 'Có' : 'Hết'}</td>
+                        <td>${item.categoryName}</td>
+                         ${item.imageUrl ? `<img src="http://localhost:5001/uploads/${item.imageUrl}" width="200"/>` : "<p>Không có hình ảnh</p>"}
+                    </tr>`;
+                    table.innerHTML += row;
+                });
+            } catch (err) {
+                console.error("Lỗi khi tải danh sách món ăn:", err);
+            }
+        }
+
+        // Load tất cả khi khởi động
+        loadCategories().then(loadData);
+    </script>
+</body>
+</html>

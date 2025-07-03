@@ -12,9 +12,24 @@ namespace myapi.Data
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<FoodItem> FoodItems { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Cart>()
+                        .HasIndex(c => c.UserId)
+                        .IsUnique();
+
+            builder.Entity<Cart>()
+                .HasMany(c => c.CartItems)
+                .WithOne(ci => ci.Cart)
+                .HasForeignKey(ci => ci.CartId);
+
+            builder.Entity<CartItem>()
+                .HasOne(ci => ci.FoodItem)
+                .WithMany()
+                .HasForeignKey(ci => ci.FoodItemId);
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole{
