@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using myapi.Data;
 
@@ -11,9 +12,11 @@ using myapi.Data;
 namespace myapi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250704071849_CreateOrderandOrderItem")]
+    partial class CreateOrderandOrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace myapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a640f130-9b6b-4206-b81e-1b27a88c1568",
+                            Id = "face8360-1f2d-4109-bdd6-275a31319462",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "cfac38c4-addf-4282-8e17-d6db6db0755b",
+                            Id = "4b587a70-6a88-46e3-adfc-fde434d10a6d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -348,9 +351,6 @@ namespace myapi.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShippingAddress")
                         .IsRequired()

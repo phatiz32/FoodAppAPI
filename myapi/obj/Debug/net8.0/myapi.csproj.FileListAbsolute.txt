@@ -195,6 +195,7 @@ C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\MimeKit.dll
 C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\RestSharp.dll
 C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Admin\FoodAppAPI\myapi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll

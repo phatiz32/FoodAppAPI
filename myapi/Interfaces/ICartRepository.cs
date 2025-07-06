@@ -16,7 +16,7 @@ namespace myapi.Interfaces
         Task<bool> UpdateCartItemQuantityAsync(string userId, UpdateCartItemDto dto);
         Task<CartTotalDto> GetCartTotalAsync(string userId);
         Task<bool> ClearCartAsync(string userId);
-
+        Task<bool> SetSelectedCartItemsAsync(string userId, List<int> cartItemIds, bool isSelected);
 
     }
 }

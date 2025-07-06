@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VNPay Return</title>
+</head>
+<body>
+    <h1>Đang xử lý kết quả thanh toán từ VNPay...</h1>
+    <script>
+        // Bạn có thể lấy các query params ở đây để hiển thị kết quả
+        const params = new URLSearchParams(window.location.search);
+        for (const [key, value] of params) {
+            console.log(`${key} = ${value}`);
+        }
+    </script>
+</body>
+</html>

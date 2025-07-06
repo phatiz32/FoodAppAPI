@@ -118,6 +118,31 @@ namespace myapi.Repository
             };
         }
 
+        public async Task<bool> SetSelectedCartItemsAsync(string userId, List<int> cartItemIds, bool isSelected)
+        {
+            var cart = await _context.Carts
+                                    .Include(c => c.CartItems)
+                                    .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null || !cart.CartItems.Any())
+                return false;
+
+            var itemsToUpdate = cart.CartItems
+                .Where(ci => cartItemIds.Contains(ci.Id))
+                .ToList();
+
+            if (!itemsToUpdate.Any()) return false;
+
+            foreach (var item in itemsToUpdate)
+            {
+                item.IsSelected = isSelected;
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+
+        }
+
         public async Task<bool> UpdateCartItemQuantityAsync(string userId, UpdateCartItemDto dto)
         {
             var cart = await _context.Carts

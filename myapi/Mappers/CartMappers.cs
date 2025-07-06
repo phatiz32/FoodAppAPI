@@ -26,7 +26,9 @@ namespace myapi.Mappers
                 Name = item.FoodItem?.Name,
                 ImageUrl = item.FoodItem?.ImageUrl,
                 Price = item.FoodItem?.Price ?? 0,
-                Quantity = item.Quantity
+                Quantity = item.Quantity,
+                IsSelected=item.IsSelected
+                
             };
         }
     }

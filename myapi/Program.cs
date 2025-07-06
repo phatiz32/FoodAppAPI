@@ -10,6 +10,7 @@ using myapi.Service;
 using Microsoft.OpenApi.Models;
 using myapi.Repository;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -96,7 +97,7 @@ builder.Services.AddCors(options =>
 
 // gán các giá trị từ appsetting.json vào EmailSettings và truy cập bất cứ đâu
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICategoryReposiory, CategoryRepository>();
@@ -104,7 +105,8 @@ builder.Services.AddScoped<IEmailServices, EmailService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IFoodItemRepository, FoodItemRespository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
-
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IMomoService, MomoService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -103,6 +103,21 @@ namespace myapi.Controllers.cs
 
             return Ok(new { message = "Đã xóa toàn bộ giỏ hàng" });
         }
+        [HttpPut("select")]
+        [Authorize]
+        public async Task<IActionResult> SelectItems([FromBody] SelectedCartItemDto dto)
+        {
+
+            var user = await _usermanager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            var success = await _cartRepository.SetSelectedCartItemsAsync(user.Id, dto.CartItemIds, dto.IsSelected);
+            if (!success)
+                return NotFound(new { error = "Không tìm thấy các món cần chọn trong giỏ hàng" });
+
+            return Ok(new { message = dto.IsSelected ? "Đã chọn món để thanh toán" : "Đã bỏ chọn món" });
+        }
+
 
     }
 }
