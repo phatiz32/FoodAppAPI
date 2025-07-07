@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using myapi.Data;
 
@@ -11,9 +12,11 @@ using myapi.Data;
 namespace myapi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250707140725_paymentandstatus")]
+    partial class paymentandstatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace myapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "141e1ba0-a3a2-46c3-918c-8c47c0f9416d",
+                            Id = "37e52b2e-e909-4fd0-98a5-98622c4091ea",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "fed08d26-5b57-4ab7-a60b-d56f9d3db8ff",
+                            Id = "ab22c22b-4f36-4665-b490-c78c34828312",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -350,6 +353,7 @@ namespace myapi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MomoPaymentId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PaymentStatus")
@@ -372,7 +376,8 @@ namespace myapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MomoPaymentId");
+                    b.HasIndex("MomoPaymentId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -527,7 +532,9 @@ namespace myapi.Migrations
                 {
                     b.HasOne("myapi.Models.Payment", "Payment")
                         .WithOne("Order")
-                        .HasForeignKey("myapi.Models.Order", "MomoPaymentId");
+                        .HasForeignKey("myapi.Models.Order", "MomoPaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("myapi.Models.AppUser", "User")
                         .WithMany()

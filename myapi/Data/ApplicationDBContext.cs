@@ -16,6 +16,7 @@ namespace myapi.Data
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Payment> Payment{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +34,9 @@ namespace myapi.Data
                 .HasOne(ci => ci.FoodItem)
                 .WithMany()
                 .HasForeignKey(ci => ci.FoodItemId);
+            builder.Entity<Order>()
+            .HasIndex(o => o.MomoPaymentId)
+            .IsUnique(false);
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole{

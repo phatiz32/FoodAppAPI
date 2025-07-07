@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using myapi.Data;
 
@@ -11,9 +12,11 @@ using myapi.Data;
 namespace myapi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250707141049_morefuture")]
+    partial class morefuture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace myapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "141e1ba0-a3a2-46c3-918c-8c47c0f9416d",
+                            Id = "3021a064-9aa2-4c80-b715-a55c188ff813",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "fed08d26-5b57-4ab7-a60b-d56f9d3db8ff",
+                            Id = "1fae9f80-7126-436a-9b63-94cdd04da21b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -372,7 +375,9 @@ namespace myapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MomoPaymentId");
+                    b.HasIndex("MomoPaymentId")
+                        .IsUnique()
+                        .HasFilter("[MomoPaymentId] IS NOT NULL");
 
                     b.HasIndex("UserId");
 

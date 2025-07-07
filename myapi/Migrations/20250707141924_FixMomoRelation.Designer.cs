@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using myapi.Data;
 
@@ -11,9 +12,11 @@ using myapi.Data;
 namespace myapi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250707141924_FixMomoRelation")]
+    partial class FixMomoRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace myapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "141e1ba0-a3a2-46c3-918c-8c47c0f9416d",
+                            Id = "4a5b8f18-b97e-4182-80b8-8acfcc80e8b4",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "fed08d26-5b57-4ab7-a60b-d56f9d3db8ff",
+                            Id = "290f426a-4d72-41da-956b-a7594138e0f0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
