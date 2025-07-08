@@ -17,6 +17,7 @@ namespace myapi.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Payment> Payment{ get; set; }
+        public DbSet<FoodReview> FoodReviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

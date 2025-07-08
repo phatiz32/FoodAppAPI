@@ -107,6 +107,7 @@ builder.Services.AddScoped<IFoodItemRepository, FoodItemRespository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IMomoService, MomoService>();
+builder.Services.AddScoped<IFoodReviewRepository, FoodReviewRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

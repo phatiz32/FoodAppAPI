@@ -76,7 +76,15 @@ public class OrderController : ControllerBase
             orderId = orderResult.OrderId
         });
     }
-    
+    [HttpGet("order")]
+    [Authorize]
+    public async Task<IActionResult> getListOrder()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+        var orderResult =await _orderRepo.getOrderInforAsync(user.Id);
+        return Ok(orderResult);
+    }
 
    
 }

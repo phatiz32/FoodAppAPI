@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using myapi.Interfaces;
 using myapi.Models;
 using myapi.Dtos.Order;
+using myapi.Mappers;
 
 namespace myapi.Repository
 {
@@ -50,6 +51,13 @@ namespace myapi.Repository
                 OrderId = order.Id,
                 TotalAmount = order.TotalAmount
             };
+        }
+
+        public async Task<List<OrderInfoDto>> getOrderInforAsync(string userId)
+        {
+            return await _context.Orders.Include(o => o.User)
+            .Where(o => o.UserId == userId).Select(o=>o.toOrderInforDto()).ToListAsync();
+            
         }
     }
 }
