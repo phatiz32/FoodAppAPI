@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "T0winJcCt1oGEEhikGOkPZwWiqL1W+6pXK38ZqFlrgM=",
+  "Hash": "+PdpBLuYlg3gE5REaJv7E9hr4w8YExbPIniq8xrFumQ=",
   "Source": "myapi",
   "BasePath": "_content/myapi",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\39963112-23d6-4810-84a0-923b8d86a693.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\44436b52-a5ef-465a-862a-2ac7f79a0461.jpg",
+      "SourceId": "myapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\",
+      "BasePath": "_content/myapi",
+      "RelativePath": "uploads/44436b52-a5ef-465a-862a-2ac7f79a0461.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\44436b52-a5ef-465a-862a-2ac7f79a0461.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\a975afe2-1c91-4141-bd98-9d506222ac0d.jpg",
@@ -72,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\b9ae99d0-220c-40f6-9315-997ebea0d887.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\d627a266-de09-40d3-b934-7bc8fc09d573.png",
+      "SourceId": "myapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\",
+      "BasePath": "_content/myapi",
+      "RelativePath": "uploads/d627a266-de09-40d3-b934-7bc8fc09d573.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\d627a266-de09-40d3-b934-7bc8fc09d573.png"
     },
     {
       "Identity": "C:\\Users\\Admin\\FoodAppAPI\\myapi\\wwwroot\\uploads\\eedecd9d-f90b-4c1d-84dd-df841b3cf950.jpg",

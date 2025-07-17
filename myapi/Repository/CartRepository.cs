@@ -108,9 +108,9 @@ namespace myapi.Repository
             if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
                 return new CartTotalDto { TotalItems = 0, TotalPrice = 0 };
 
-            var totalItems = cart.CartItems.Sum(i => i.Quantity);
-            var totalPrice = cart.CartItems.Sum(i => i.Quantity * i.FoodItem.Price);
-
+            var selectedItems = cart.CartItems.Where(i => i.IsSelected == true).ToList();
+            var totalItems = selectedItems.Sum(i => i.Quantity);
+            var totalPrice = selectedItems.Sum(i => i.Quantity * i.FoodItem.Price);
             return new CartTotalDto
             {
                 TotalItems = totalItems,

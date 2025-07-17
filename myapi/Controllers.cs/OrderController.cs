@@ -7,6 +7,8 @@ using myapi.Dtos.Order;
 using myapi.Interfaces;
 using myapi.Models;
 
+[ApiController]
+[Route("api/[controller]")]
 public class OrderController : ControllerBase
 {
     private readonly IOrderRepository _orderRepo;
@@ -78,11 +80,11 @@ public class OrderController : ControllerBase
     }
     [HttpGet("order")]
     [Authorize]
-    public async Task<IActionResult> getListOrder()
+    public async Task<IActionResult> getListOrder(int pageSize = 5, int pageNumber = 1)
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
-        var orderResult =await _orderRepo.getOrderInforAsync(user.Id);
+        var orderResult =await _orderRepo.getOrderInforAsync(user.Id,pageSize,pageNumber);
         return Ok(orderResult);
     }
 

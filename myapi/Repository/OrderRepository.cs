@@ -34,7 +34,7 @@ namespace myapi.Repository
             {
                 UserId = userId,
                 ShippingAddress = shippingAddress,
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = DateTime.Now,
                 OrderItems = selectedItems.Select(ci => new OrderItem
                 {
                     FoodItemId = ci.FoodItemId,
@@ -53,10 +53,15 @@ namespace myapi.Repository
             };
         }
 
-        public async Task<List<OrderInfoDto>> getOrderInforAsync(string userId)
+        public async Task<List<OrderInfoDto>> getOrderInforAsync(string userId,int pageSize=5, int pageNumber=1)
         {
-            return await _context.Orders.Include(o => o.User)
-            .Where(o => o.UserId == userId).Select(o=>o.toOrderInforDto()).ToListAsync();
+            return await _context.Orders
+            .Include(o => o.User)
+            .Where(o => o.UserId == userId)
+            .OrderByDescending(o => o.CreatedAt)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .Select(o=>o.toOrderInforDto()).ToListAsync();
             
         }
     }

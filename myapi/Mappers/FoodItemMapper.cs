@@ -27,10 +27,12 @@ namespace myapi.Mappers
                 Name = model.Name,
                 Description = model.Description,
                 Price = model.Price,
-                IsAvailable = model.IsAvailable,
+                //IsAvailable = model.IsAvailable,
                 ImageUrl = model.ImageUrl,
-                CategoryId = model.CategoryId,
-                CategoryName = model.Category?.Name ?? ""
+                //CategoryId = model.CategoryId,
+                CategoryName = model.Category?.Name ?? "",
+                FoodItemId=model.Id
+                
             };
         }
         

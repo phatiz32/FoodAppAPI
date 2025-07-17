@@ -108,6 +108,7 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IMomoService, MomoService>();
 builder.Services.AddScoped<IFoodReviewRepository, FoodReviewRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {

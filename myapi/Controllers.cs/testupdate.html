@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update User</title>
+</head>
+<body>
+    <h2>Thông tin người dùng</h2>
+    
+    <label>Họ tên:</label>
+    <input type="text" id="fullName"><br><br>
+
+    <label>Số điện thoại:</label>
+    <input type="text" id="phoneNumber"><br><br>
+
+    <button onclick="updateUser()">Cập nhật</button>
+
+    <p id="result"></p>
+
+    <script>
+        const token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBoYXR0b24wNEBnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoidG9udHJ1b25ncGhhdCIsIm5hbWVpZCI6IjdhYzA2NzIyLTBkNjgtNDg5OC04MTIyLWVhOTUxZDRlYzYyMiIsInN1YiI6IjdhYzA2NzIyLTBkNjgtNDg5OC04MTIyLWVhOTUxZDRlYzYyMiIsIm5iZiI6MTc1MjUwMDEwNiwiZXhwIjoxNzUzMTA0OTA2LCJpYXQiOjE3NTI1MDAxMDYsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMSJ9.58hBFn9VMZxT_POvm2znvIReqmpuIRbMJiD_G-0bm2V2IIod_XfjwbamNf95jPH8ROg6DPN0EJy5t7J-6J1lEQ"; // lưu token vào localStorage trước khi dùng
+
+        async function loadUserInfo() {
+            const response = await fetch("http://localhost:5001/api/UserContronller/me", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const user = await response.json();
+                document.getElementById("fullName").value = user.fullName || "";
+                document.getElementById("phoneNumber").value = user.phoneNumber || "";
+                
+            } else {
+                document.getElementById("result").innerText = "❌ Không thể tải thông tin người dùng.";
+            }
+        }
+
+        async function updateUser() {
+            const dto = {
+                fullName: document.getElementById("fullName").value,
+                phoneNumber: document.getElementById("phoneNumber").value,
+            };
+
+            const response = await fetch("http://localhost:5001/api/UserContronller/me", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(dto)
+            });
+
+            if (response.status === 204) {
+                document.getElementById("result").innerText = "✅ Cập nhật thành công!";
+            } else {
+                const msg = await response.text();
+                document.getElementById("result").innerText = "❌ Lỗi: " + msg;
+            }
+        }
+
+        // Gọi khi trang load
+        window.onload = loadUserInfo;
+    </script>
+</body>
+</html>

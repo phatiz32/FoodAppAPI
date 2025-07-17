@@ -76,7 +76,7 @@ namespace myapi.Repository
             }
             foodQuery = foodQuery.Skip((query.PageNumber - 1) * query.PageSize)
             .Take(query.PageSize);
-            var foodList = await foodQuery.Select(s => s.toFoodItemDto()).ToListAsync();
+            var foodList = await foodQuery.Where(s=>s.IsAvailable==true).Select(s => s.toFoodItemDto()).ToListAsync();
             return foodList;
 
         }
@@ -88,11 +88,26 @@ namespace myapi.Repository
             {
                 return null;
             }
-            food.Name = foodItemDto.Name;
-            food.Description = foodItemDto.Description;
-            food.Price = foodItemDto.Price;
-            food.CategoryId = foodItemDto.CategoryId;
-            food.IsAvailable = foodItemDto.IsAvailable;
+            // food.Name = foodItemDto.Name;
+            // food.Description = foodItemDto.Description;
+            // food.Price = foodItemDto.Price;
+            // food.CategoryId = foodItemDto.CategoryId;
+            // food.IsAvailable = foodItemDto.IsAvailable;
+            if (foodItemDto.Name != null)
+                food.Name = foodItemDto.Name;
+
+            if (foodItemDto.Description != null)
+                food.Description = foodItemDto.Description;
+
+            if (foodItemDto.Price.HasValue)
+                food.Price = foodItemDto.Price.Value;
+
+            if (foodItemDto.CategoryId.HasValue)
+                food.CategoryId = foodItemDto.CategoryId.Value;
+
+            if (foodItemDto.IsAvailable.HasValue)
+                food.IsAvailable = foodItemDto.IsAvailable.Value;
+
             if (foodItemDto.Image != null && foodItemDto.Image.Length > 0)
             {
                 var uploadPath = Path.Combine(_env.WebRootPath, "uploads");
