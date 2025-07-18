@@ -14,11 +14,11 @@ namespace myapi.Controllers.cs
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class UserContronller : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
         private readonly UserManager<AppUser> _userManager;
-        public UserContronller(IUserRepository userRepository, UserManager<AppUser> userManager)
+        public UserController(IUserRepository userRepository, UserManager<AppUser> userManager)
         {
             _userRepository = userRepository;
             _userManager = userManager;

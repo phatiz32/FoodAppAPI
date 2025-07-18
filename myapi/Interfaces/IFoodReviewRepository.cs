@@ -9,6 +9,6 @@ namespace myapi.Interfaces
     public interface IFoodReviewRepository
     {
         Task<FoodReviewInfoDto> CreateReviewAsync(string userId, CreateFoodReviewDto dto);
-        Task<List<FoodReviewInfoDto>> GetReviewsByFoodItemIdAsync(int foodItemId);
+        Task<List<FoodReviewInfoDto>> GetReviewsByFoodItemIdAsync(int foodItemId,int pageSize,int pageNumber);
     }
 }

@@ -33,10 +33,13 @@ namespace myapi.Repository
             return review.ToFoodReviewInfoDto();
         }
 
-        public async Task<List<FoodReviewInfoDto>> GetReviewsByFoodItemIdAsync(int foodItemId)
+        public async Task<List<FoodReviewInfoDto>> GetReviewsByFoodItemIdAsync(int foodItemId,int pageSize,int pageNumber)
         {
-            return await _context.FoodReviews.Where(f => f.FoodItemId == foodItemId)
-            .Include(f=>f.User).OrderByDescending(f=>f.CreatedAt)
+            return await _context.FoodReviews
+            .Where(f => f.FoodItemId == foodItemId)
+            .Include(f => f.User).OrderByDescending(f => f.CreatedAt)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .Select(f => f.ToFoodReviewInfoDto()).ToListAsync();
         }
     }

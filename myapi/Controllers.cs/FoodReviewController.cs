@@ -14,7 +14,6 @@ namespace myapi.Controllers.cs
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class FoodReviewController : ControllerBase
     {
         private readonly IFoodReviewRepository _foodReviewRepos;
@@ -25,6 +24,7 @@ namespace myapi.Controllers.cs
             _userManager = userManager;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateReviews([FromBody] CreateFoodReviewDto dto)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -34,9 +34,9 @@ namespace myapi.Controllers.cs
 
         }
         [HttpGet("{foodItemId}")]
-        public async Task<IActionResult> GetReviewsByFoodItem([FromRoute] int foodItemId)
+        public async Task<IActionResult> GetReviewsByFoodItem([FromRoute] int foodItemId,int pageNumber=1,int pageSize=5)
         {
-            var result = await _foodReviewRepos.GetReviewsByFoodItemIdAsync(foodItemId);
+            var result = await _foodReviewRepos.GetReviewsByFoodItemIdAsync(foodItemId,pageSize,pageNumber);
             return Ok(result);
         }
 
