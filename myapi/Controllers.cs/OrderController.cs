@@ -6,6 +6,8 @@ using myapi.Data;
 using myapi.Dtos.Order;
 using myapi.Interfaces;
 using myapi.Models;
+using myapi.Models.vnpay;
+using myapi.Service.vnpay;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -15,16 +17,18 @@ public class OrderController : ControllerBase
     private readonly UserManager<AppUser> _userManager;
     private readonly ApplicationDBContext _context;
     private readonly IMomoService _momoService;
+    private readonly IVnPayService _vnPayService;
 
     public OrderController(
         IOrderRepository orderRepo,
         UserManager<AppUser> userManager,
-        ApplicationDBContext context, IMomoService momoService)
+        ApplicationDBContext context, IMomoService momoService, IVnPayService vnPayService)
     {
         _orderRepo = orderRepo;
         _userManager = userManager;
         _context = context;
         _momoService = momoService;
+        _vnPayService = vnPayService;
     }
 
     [HttpPost("create")]
@@ -84,9 +88,42 @@ public class OrderController : ControllerBase
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
-        var orderResult =await _orderRepo.getOrderInforAsync(user.Id,pageSize,pageNumber);
+        var orderResult = await _orderRepo.getOrderInforAsync(user.Id, pageSize, pageNumber);
         return Ok(orderResult);
     }
+    [HttpPost("create-vnpay")]
+    [Authorize]
+        public async Task<IActionResult> CreateOrderWithVnPayAsync([FromBody] CreateOrderDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-   
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            // B1: Tạo đơn hàng từ giỏ hàng đã chọn
+            var orderResult = await _orderRepo.CreateOrderFromSelectedCartItemsAsync(user.Id, dto.ShippingAddress);
+            if (orderResult == null)
+                return BadRequest(new { error = "Không có món nào được chọn để đặt hàng" });
+
+            // B2: Tạo model gửi qua VnPay
+            var vnPayRequest = new PaymentInformationModel
+            {
+                Amount =(int)orderResult.TotalAmount,
+                OrderType = "billpayment", // hoặc type khác theo yêu cầu VNPay
+                OrderDescription = $"ORDERID:{orderResult.OrderId};EMAIL:{user.Email}",
+                Name = user.UserName
+            };
+
+            // B3: Gọi VnPayService để tạo URL thanh toán
+            var paymentUrl = _vnPayService.CreatePaymentUrl(vnPayRequest, HttpContext);
+
+            // B4: Trả về client để chuyển hướng sang VNPay
+            return Ok(new
+            {
+                message = "Đơn hàng đã tạo thành công",
+                paymentUrl = paymentUrl,
+                orderId = orderResult.OrderId
+            });
+        }
 }

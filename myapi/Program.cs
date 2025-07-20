@@ -9,6 +9,7 @@ using myapi.Interfaces;
 using myapi.Service;
 using Microsoft.OpenApi.Models;
 using myapi.Repository;
+using myapi.Service.vnpay;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -109,6 +110,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IMomoService, MomoService>();
 builder.Services.AddScoped<IFoodReviewRepository, FoodReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {

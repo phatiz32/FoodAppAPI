@@ -1,4 +1,5 @@
 using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using myapi.Dtos.Category;
@@ -28,6 +29,7 @@ namespace myapi.Controllers
             return Ok(categoryDtos);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(CreateCategoryDto createDto)
         {
             var category = createDto.ToCategoryDto();// chuyen tu dto sang enity
