@@ -29,7 +29,7 @@ namespace myapi.Controllers
             return Ok(categoryDtos);
         }
         [HttpPost]
-        [Authorize]
+        [Authorize("Admin")]
         public async Task<IActionResult> Create(CreateCategoryDto createDto)
         {
             var category = createDto.ToCategoryDto();// chuyen tu dto sang enity
